@@ -45,9 +45,12 @@ class MyGame extends BaseGame {
   var direction = 'stop';
   SpriteComponent mia = SpriteComponent();
   SpriteAnimationComponent miaSpriteLeft = SpriteAnimationComponent();
+  SpriteAnimationComponent miaSpriteRight = SpriteAnimationComponent();
   Sprite miaLeft;
   Sprite miaRight;
   ui.Image leftMiaSheet;
+  bool rightUpdated = false;
+  bool leftUpdated = true;
 
   Future<void> onLoad() async {
     print('loading assets');
@@ -79,18 +82,31 @@ class MyGame extends BaseGame {
           ..x = width / 2
           ..y = height / 2;
     add(miaSpriteLeft);
+
+    miaSpriteRight =
+        SpriteAnimationComponent.fromFrameData(rightMiaSheet, miaSpriteData)
+          ..size = miaSpriteSize
+          ..anchor = Anchor.center
+          ..x = width / 2
+          ..y = height / 2;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
     if (direction == 'right') {
-      if (mia.sprite == miaLeft) {
-        mia.sprite = miaRight;
+      if (!rightUpdated) {
+        remove(miaSpriteLeft);
+        add(miaSpriteRight);
+        this.rightUpdated = true;
+        this.leftUpdated = false;
       }
     } else if (direction == 'left') {
-      if (mia.sprite == miaRight) {
-        mia.sprite = miaLeft;
+      if (!leftUpdated) {
+        remove(miaSpriteRight);
+        add(miaSpriteLeft);
+        this.leftUpdated = true;
+        this.rightUpdated = false;
       }
     }
     // print(direction);
