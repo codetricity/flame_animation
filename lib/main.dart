@@ -19,18 +19,34 @@ void main() {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
+                  // TextButton(
+                  //   onPressed: () {
+                  //     game.direction = 'left';
+                  //   },
+                  //   child: Text('left'),
+                  // ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_left_rounded),
+                    color: Colors.blue,
                     onPressed: () {
                       game.direction = 'left';
                     },
-                    child: Text('left'),
+                    iconSize: 60.0,
                   ),
-                  TextButton(
+                  IconButton(
+                    icon: Icon(Icons.arrow_right_rounded),
+                    color: Colors.blue,
                     onPressed: () {
                       game.direction = 'right';
                     },
-                    child: Text('right'),
+                    iconSize: 60.0,
                   ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     game.direction = 'right';
+                  //   },
+                  //   child: Text('right'),
+                  // ),
                 ],
               ),
             ),
