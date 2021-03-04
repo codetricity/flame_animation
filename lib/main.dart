@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/extensions.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   var game = MyGame();
@@ -14,47 +15,70 @@ void main() {
           fit: StackFit.expand,
           children: [
             GameWidget(game: game),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // TextButton(
-                  //   onPressed: () {
-                  //     game.direction = 'left';
-                  //   },
-                  //   child: Text('left'),
-                  // ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_left_rounded),
-                    color: Colors.blue,
-                    onPressed: () {
-                      game.direction = 'left';
-                    },
-                    iconSize: 60.0,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_right_rounded),
-                    color: Colors.blue,
-                    onPressed: () {
-                      game.direction = 'right';
-                    },
-                    iconSize: 60.0,
-                  ),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     game.direction = 'right';
-                  //   },
-                  //   child: Text('right'),
-                  // ),
-                ],
-              ),
-            ),
+            MenuOverlay(game: game),
           ],
         ),
       ),
     ),
   );
+}
+
+class MenuOverlay extends StatelessWidget {
+  const MenuOverlay({
+    Key key,
+    @required this.game,
+  }) : super(key: key);
+
+  final MyGame game;
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    return Container(
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // TextButton(
+          //   onPressed: () {
+          //     game.direction = 'left';
+          //   },
+          //   child: Text('left'),
+          // ),
+          IconButton(
+            icon: Icon(Icons.arrow_left_rounded),
+            color: Colors.blue,
+            onPressed: () {
+              game.direction = 'left';
+            },
+            iconSize: 60.0,
+          ),
+          IconButton(
+            icon: Icon(Icons.stop),
+            color: Colors.blue,
+            onPressed: () {
+              game.direction = 'stop';
+            },
+            iconSize: 30.0,
+          ),
+          IconButton(
+            icon: Icon(Icons.arrow_right_rounded),
+            color: Colors.blue,
+            onPressed: () {
+              game.direction = 'right';
+            },
+            iconSize: 60.0,
+          ),
+          // TextButton(
+          //   onPressed: () {
+          //     game.direction = 'right';
+          //   },
+          //   child: Text('right'),
+          // ),
+        ],
+      ),
+    );
+  }
 }
 
 class MyGame extends BaseGame {
@@ -67,13 +91,17 @@ class MyGame extends BaseGame {
   ui.Image leftMiaSheet;
   bool rightUpdated = false;
   bool leftUpdated = true;
+  double width;
+  double height;
+  double speed = 2.0;
 
   Future<void> onLoad() async {
     print('loading assets');
     // get game size with size.
-    double width = size[0];
-    double height = size[1];
+
     print('width: $width, height: $height');
+    width = size[0];
+    height = size[1];
 
     miaLeft = await loadSprite('mia_square_1.png');
     miaRight = await loadSprite('mia_square_right_1.png');
@@ -111,14 +139,24 @@ class MyGame extends BaseGame {
   void update(double dt) {
     super.update(dt);
     if (direction == 'right') {
+      if (miaSpriteRight.x < width) {
+        miaSpriteRight.x += speed;
+      }
+
       if (!rightUpdated) {
+        miaSpriteLeft.position = miaSpriteRight.position;
         remove(miaSpriteLeft);
         add(miaSpriteRight);
         this.rightUpdated = true;
         this.leftUpdated = false;
       }
     } else if (direction == 'left') {
+      if (miaSpriteLeft.x > 0) {
+        miaSpriteLeft.x -= speed;
+      }
+
       if (!leftUpdated) {
+        miaSpriteRight.position = miaSpriteLeft.position;
         remove(miaSpriteRight);
         add(miaSpriteLeft);
         this.leftUpdated = true;
