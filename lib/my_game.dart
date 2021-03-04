@@ -36,6 +36,14 @@ class MyGame extends BaseGame {
       ..y = height / 2;
     // add(mia);
 
+    var background = SpriteComponent();
+
+    background
+      ..sprite = await loadSprite('bg-forest.png')
+      ..size = Vector2(width, height);
+
+    add(background);
+
     leftMiaSheet = await images.load('mia_left.png');
     final rightMiaSheet = await images.load('mia_right.png');
     final miaSpriteSize = Vector2(200, 200);
