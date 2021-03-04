@@ -29,6 +29,7 @@ class MenuOverlay extends StatelessWidget {
             color: Colors.blue,
             onPressed: () {
               game.direction = 'left';
+              game.audio.resume();
             },
             iconSize: 60.0,
           ),
@@ -37,6 +38,7 @@ class MenuOverlay extends StatelessWidget {
             color: Colors.blue,
             onPressed: () {
               game.direction = 'stop';
+              game.audio.pause();
             },
             iconSize: 30.0,
           ),
@@ -45,6 +47,7 @@ class MenuOverlay extends StatelessWidget {
             color: Colors.blue,
             onPressed: () {
               game.direction = 'right';
+              game.audio.resume();
             },
             iconSize: 60.0,
           ),

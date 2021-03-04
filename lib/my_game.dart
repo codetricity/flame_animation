@@ -1,6 +1,7 @@
 import 'package:flame/extensions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/bgm.dart';
 import 'dart:ui' as ui;
 
 class MyGame extends BaseGame {
@@ -16,6 +17,8 @@ class MyGame extends BaseGame {
   double width;
   double height;
   double speed = 2.0;
+  Bgm audio = Bgm();
+  bool musicIsPlaying = true;
 
   Future<void> onLoad() async {
     print('loading assets');
@@ -63,13 +66,15 @@ class MyGame extends BaseGame {
           ..anchor = Anchor.center
           ..x = width / 2
           ..y = height / 2;
+    audio.initialize();
+    audio.play('audio/love_lost.mp3');
   }
 
   @override
   void update(double dt) {
     super.update(dt);
     if (direction == 'right') {
-      if (miaSpriteRight.x < width) {
+      if (miaSpriteRight.x < width - miaSpriteRight.width / 2) {
         miaSpriteRight.x += speed;
       }
 
@@ -81,7 +86,7 @@ class MyGame extends BaseGame {
         this.leftUpdated = false;
       }
     } else if (direction == 'left') {
-      if (miaSpriteLeft.x > 0) {
+      if (miaSpriteLeft.x > 0 + miaSpriteLeft.width / 2) {
         miaSpriteLeft.x -= speed;
       }
 
