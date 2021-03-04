@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'my_game.dart';
 
 class MenuOverlay extends StatelessWidget {
   const MenuOverlay({
