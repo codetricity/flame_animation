@@ -2,11 +2,14 @@ import 'package:flame/extensions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/bgm.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'dart:ui' as ui;
 
 class MyGame extends BaseGame {
   var direction = 'stop';
   SpriteComponent mia = SpriteComponent();
+  SpriteComponent asuna = SpriteComponent();
+
   SpriteAnimationComponent miaSpriteLeft = SpriteAnimationComponent();
   SpriteAnimationComponent miaSpriteRight = SpriteAnimationComponent();
   Sprite miaLeft;
@@ -31,13 +34,13 @@ class MyGame extends BaseGame {
     miaLeft = await loadSprite('mia_square_1.png');
     miaRight = await loadSprite('mia_square_right_1.png');
 
-    mia
-      ..sprite = miaLeft
-      ..size = Vector2(200, 200)
-      ..anchor = Anchor.center
-      ..x = width / 2
+    Sprite asunaSprite = await loadSprite('asuna.gif');
+    asuna
+      ..sprite = asunaSprite
+      ..size = Vector2(148, 180)
+      ..anchor = Anchor.centerLeft
+      ..x = -30
       ..y = height / 2;
-    // add(mia);
 
     var background = SpriteComponent();
 
@@ -46,10 +49,11 @@ class MyGame extends BaseGame {
       ..size = Vector2(width, height);
 
     add(background);
+    add(asuna);
 
     leftMiaSheet = await images.load('mia_left.png');
     final rightMiaSheet = await images.load('mia_right.png');
-    final miaSpriteSize = Vector2(200, 200);
+    final miaSpriteSize = Vector2(180, 180);
     SpriteAnimationData miaSpriteData = SpriteAnimationData.sequenced(
         amount: 4, stepTime: 0.12, textureSize: Vector2(300.0, 300.0));
     miaSpriteLeft =
@@ -86,7 +90,11 @@ class MyGame extends BaseGame {
         this.leftUpdated = false;
       }
     } else if (direction == 'left') {
-      if (miaSpriteLeft.x > 0 + miaSpriteLeft.width / 2) {
+      if (miaSpriteLeft.x - miaSpriteLeft.width / 2 < 100) {
+        print('bounce');
+        miaSpriteLeft.x = 300 + miaSpriteLeft.width / 2;
+        FlameAudio.play('bounce.wav');
+      } else if (miaSpriteLeft.x > 0 + miaSpriteLeft.width / 2) {
         miaSpriteLeft.x -= speed;
       }
 
