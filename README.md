@@ -13,6 +13,7 @@ Audio stopped working as of June 21, 2021.
 Trying to debug audio problem.
 https://github.com/flutter/flutter/issues/83834
 
+https://github.com/luanpotter/audioplayers/issues/923
 
 Incompatible version of Kotlin.
 
