@@ -1,1 +1,11 @@
 # Flame Animation test
+
+![screenshot](docs/images/screenshot.gif)
+
+Uses Flutter stack to use Flutter widgets inside a Flame game.
+
+Audio stopped working as of June 21, 2021.  I likely need to
+upgrade the package.
+
+[video tutorial](https://youtu.be/v_Yb95vdMEM)
+

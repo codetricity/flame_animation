@@ -1,11 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.f_shell">
+    package="com.example.flame_animation">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
-<uses-sdk
-    android:minSdkVersion="23"
-    android:targetSdkVersion="30"
-    android:maxSdkVersion="30"/>    
 </manifest>
