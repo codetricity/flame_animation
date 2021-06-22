@@ -8,3 +8,19 @@ Audio stopped working as of June 21, 2021.
 
 [video tutorial](https://youtu.be/v_Yb95vdMEM)
 
+## Notes
+
+Trying to debug audio problem.
+https://github.com/flutter/flutter/issues/83834
+
+
+Incompatible version of Kotlin.
+
+In `build.gradle` under android
+
+```
+buildscript {
+    ext.kotlin_version = '1.5.10'
+    repositories {
+        google()
+```
