@@ -4,13 +4,15 @@
 
 Uses Flutter stack to use Flutter widgets inside a Flame game.
 
-Audio stopped working as of June 21, 2021.  
+Audio only tested on Android and Google Chrome as of June 21, 2021.  
 
 [video tutorial](https://youtu.be/v_Yb95vdMEM)
 
 ## Notes
 
-Trying to debug audio problem.
+If you encounter build errors on Android, it may be because of gradle cache.
+I had to through the steps below.  I have audio working on web and Android now.
+
 https://github.com/flutter/flutter/issues/83834
 
 https://github.com/luanpotter/audioplayers/issues/923

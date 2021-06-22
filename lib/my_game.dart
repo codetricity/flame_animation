@@ -2,7 +2,9 @@ import 'package:flame/extensions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/bgm.dart';
-import 'package:flame_audio/flame_audio.dart';
+// import 'package:flame_audio/flame_audio.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 import 'dart:ui' as ui;
 
 class MyGame extends BaseGame {
@@ -22,6 +24,7 @@ class MyGame extends BaseGame {
   double speed = 2.0;
   Bgm audio = Bgm();
   bool musicIsPlaying = true;
+  AudioCache audioCache = AudioCache();
 
   Future<void> onLoad() async {
     print('loading assets');
@@ -71,7 +74,7 @@ class MyGame extends BaseGame {
           ..x = width / 2
           ..y = height / 2;
     audio.initialize();
-    audio.play('audio/love_lost.mp3');
+    audio.play('audio/love_lost.mp3', volume: .8);
   }
 
   @override
@@ -93,7 +96,7 @@ class MyGame extends BaseGame {
       if (miaSpriteLeft.x - miaSpriteLeft.width / 2 < 100) {
         print('bounce');
         miaSpriteLeft.x = 300 + miaSpriteLeft.width / 2;
-        FlameAudio.play('bounce.wav');
+        audioCache.play('audio/bounce.wav', volume: 1.0);
       } else if (miaSpriteLeft.x > 0 + miaSpriteLeft.width / 2) {
         miaSpriteLeft.x -= speed;
       }
